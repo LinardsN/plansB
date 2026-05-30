@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="lv">
+<head>
+  <title>Plāns B — Dzīva mūzika tavam vakaram</title>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  html { scroll-behavior: smooth; }
+  html, body { margin: 0; background: #161310; font-family: 'Inter', system-ui, sans-serif; min-height: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+</style>
+<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" data-presets="react" src="/shared.jsx"></script>
+  <script type="text/babel" data-presets="react" src="/concept-anomaly.jsx"></script>
+  <script type="text/babel" data-presets="react" src="/mobile-anomaly.jsx"></script>
+  <script type="text/babel" data-presets="react">
+    function App() {
+      const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
+      React.useEffect(() => {
+        const onResize = () => setIsMobile(window.innerWidth <= 768);
+        window.addEventListener('resize', onResize);
+        return () => window.removeEventListener('resize', onResize);
+      }, []);
+      return isMobile
+        ? React.createElement(MobileAnomaly, { lang: 'lv' })
+        : React.createElement(ConceptAnomaly, { lang: 'lv', grain: 0.08, theme: 'dark' });
+    }
+    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
+  </script>
+</body>
+</html>

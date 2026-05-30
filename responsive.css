@@ -1,0 +1,207 @@
+
+/* ===== Plāns B — responsive overrides ===== */
+
+/* Tablet: 1024px and below */
+@media (max-width: 1024px) {
+  /* Hero headline */
+  h1.anom-display { font-size: 96px !important; }
+  h2.anom-display { font-size: 52px !important; }
+  h2.ag-display, h1.ag-display { font-size: 80px !important; }
+  h1.ap-display { font-size: 80px !important; }
+
+  /* Header */
+  .anom-root > header,
+  .ag-root > header,
+  .ap-root > header { padding: 18px 32px !important; column-gap: 16px !important; }
+  .anom-root > header img,
+  .ag-root > header img,
+  .ap-root > header img { height: 56px !important; }
+  .anom-root > header nav { gap: 20px !important; font-size: 10px !important; }
+
+  /* Section paddings */
+  .anom-root section,
+  .ag-root section,
+  .ap-root section { padding-left: 32px !important; padding-right: 32px !important; }
+
+  /* Two-column body grids */
+  .anom-root section [style*="grid-template-columns: 1fr 1.4fr"],
+  .anom-root section [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 40px !important;
+  }
+}
+
+/* ===== Mobile: 768px and below ===== */
+@media (max-width: 768px) {
+  html, body { overflow-x: hidden; }
+
+  /* HEADER — restructure into two rows */
+  .anom-root > header,
+  .ag-root > header,
+  .ap-root > header {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 14px 20px !important;
+    gap: 12px !important;
+    row-gap: 14px !important;
+  }
+  .anom-root > header img,
+  .ag-root > header img,
+  .ap-root > header img { height: 40px !important; }
+  .anom-root > header nav {
+    order: 3 !important;
+    flex-basis: 100% !important;
+    justify-content: space-between !important;
+    gap: 4px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+    padding-top: 8px !important;
+    border-top: 1px solid rgba(240,232,216,0.1) !important;
+  }
+  .anom-root > header nav a { padding-bottom: 0 !important; }
+  /* Right group: LV/EN + Book */
+  .anom-root > header > div:last-child { gap: 10px !important; }
+  .anom-root > header > div:last-child a[style*="background:"] {
+    padding: 8px 14px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.12em !important;
+  }
+
+  /* HERO */
+  .anom-root section[style*="32px 32px 0"] { padding: 16px 16px 0 !important; }
+  /* meta strip — stack */
+  .anom-root section[style*="32px 32px 0"] > div:first-child {
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+    font-size: 9px !important;
+    letter-spacing: 0.1em !important;
+  }
+  /* Hero h1 */
+  h1.anom-display { font-size: 44px !important; }
+  /* Hero photo aspect ratio — taller is fine */
+  
+  /* Section h2 */
+  h2.anom-display { font-size: 36px !important; }
+  h2.ag-display, h1.ag-display { font-size: 44px !important; }
+  h1.ap-display { font-size: 44px !important; }
+
+  /* SECTION PADDINGS — collapse */
+  .anom-root section { padding: 56px 20px !important; }
+  .ag-root section { padding-left: 20px !important; padding-right: 20px !important; padding-top: 56px !important; padding-bottom: 56px !important; }
+  .ap-root section { padding-left: 20px !important; padding-right: 20px !important; padding-top: 56px !important; padding-bottom: 56px !important; }
+
+  /* ABOUT — oxblood block */
+  #about > div[style*="position: relative"] > div[style*="position: absolute"] {
+    position: relative !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    top: auto !important;
+    width: 100% !important;
+    padding: 32px 24px !important;
+  }
+  #about > div[style*="position: relative"] > div[style*="position: absolute"] p {
+    font-size: 22px !important;
+  }
+  /* About sub-paragraph */
+  #about > div[style*="grid-template-columns: 1fr 1.4fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    margin-top: 60px !important;
+  }
+
+  /* SERVICES — single col */
+  #services [style*="grid-template-columns: 80px 1fr 2fr"] {
+    grid-template-columns: 56px 1fr !important;
+    gap: 12px !important;
+    padding: 20px 0 !important;
+  }
+  #services h3.anom-display { font-size: 24px !important; }
+  #services [style*="grid-template-columns: 80px 1fr 2fr"] > p {
+    grid-column: 1 / -1 !important;
+    margin-top: 4px !important;
+    font-size: 14px !important;
+  }
+
+  /* GALLERY — stack from 3 columns to 1 */
+  #gallery [style*="grid-template-columns: 1.4fr 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+  }
+  /* The right two columns: keep their stacked squares as single column too */
+  #gallery [style*="grid-template-columns: 1.4fr 1fr 1fr"] > div[style*="display: grid"] {
+    gap: 8px !important;
+  }
+  /* Cap height inline hack on blur.jpg */
+  #gallery img[height], #gallery img[style*="360.06"] { height: auto !important; aspect-ratio: 1 !important; }
+
+  /* TESTIMONIALS */
+  .anom-root section [style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    gap: 36px !important;
+  }
+  .anom-root section [style*="grid-template-columns: 1fr 1fr"] p.anom-display {
+    font-size: 20px !important;
+  }
+
+  /* CONTACT — outer wrap padding */
+  #contact > div[style*="padding: 120px 60px 80px"] { padding: 56px 20px !important; }
+  /* Atmosphere photo */
+  #contact > div[style*="aspect-ratio: 16/4"], 
+  #contact > div[style*="aspectRatio: \"16/4\""] { aspect-ratio: 16/9 !important; }
+
+  /* Contact heading row */
+  #contact > div > div[style*="grid-template-columns: 1fr 1.4fr"],
+  #contact > div > div[style*="grid-template-columns: 1fr 1.4fr"] form {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+  #contact form { grid-template-columns: 1fr !important; gap: 20px !important; }
+  #contact form > div:last-child { flex-direction: column !important; align-items: stretch !important; gap: 16px !important; }
+  #contact h2.anom-display { font-size: 42px !important; }
+  #contact a[href^="mailto"], #contact a[href^="tel"] { font-size: 18px !important; }
+
+  /* Footer inside contact */
+  #contact > div > div[style*="margin-top: 100"] {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 18px !important;
+    margin-top: 56px !important;
+  }
+  #contact footer div[style*="gap: 24"], 
+  #contact > div > div[style*="margin-top: 100"] > div[style*="gap: 24"] {
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+  }
+
+  /* /galerija masonry — 1 column */
+  .ag-root section [style*="column-count: 3"],
+  .ag-root section [style*="columnCount"] {
+    column-count: 1 !important;
+  }
+
+  /* /bildes grid — already auto-fit, but tighten min */
+  .ap-root section [style*="minmax(360px"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Generic footer */
+  footer { 
+    flex-direction: column !important; 
+    align-items: flex-start !important; 
+    gap: 16px !important; 
+    padding: 32px 20px !important;
+  }
+  footer > div[style*="display: flex"] { flex-wrap: wrap !important; gap: 12px !important; }
+}
+
+/* Smaller phones — 480px */
+@media (max-width: 480px) {
+  h1.anom-display { font-size: 36px !important; }
+  h1.ag-display, h1.ap-display { font-size: 36px !important; }
+  h2.anom-display { font-size: 28px !important; }
+  .anom-root > header img,
+  .ag-root > header img,
+  .ap-root > header img { height: 32px !important; }
+}
