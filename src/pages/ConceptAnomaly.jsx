@@ -102,9 +102,9 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
               aria-pressed={lang === 'en'}
               style={{ all: 'unset', cursor: 'pointer', color: lang === 'en' ? oxblood : muted, fontWeight: 700 }}>EN</button>
           </span>
-          <a href="#forma" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 22px', background: oxblood, color: cream, textDecoration: 'none', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', transition: 'background .2s' }}
-          onMouseEnter={(e) => {e.currentTarget.style.background = ink;}}
-          onMouseLeave={(e) => {e.currentTarget.style.background = oxblood;}}>
+          <a href="#forma" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 22px', background: oxblood, color: cream, textDecoration: 'none', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', transition: 'background .2s ease, color .2s ease' }}
+          onMouseEnter={(e) => {e.currentTarget.style.background = ink; e.currentTarget.style.color = onInk;}}
+          onMouseLeave={(e) => {e.currentTarget.style.background = oxblood; e.currentTarget.style.color = cream;}}>
             {lang === 'lv' ? 'Rezervēt' : 'Book'} <span>→</span>
           </a>
         </div>
