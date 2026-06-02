@@ -186,33 +186,27 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
         <div style={{ padding: '0 60px' }}>
           <SectionHead slash={lang === 'lv' ? 'NO SKATUVES' : 'FROM THE STAGE'} num="03 / 03" title={t.galleryTitle} />
         </div>
-        {/* Asymmetric grid: tall left photo (aspectRatio 7/10) + two stacks
-            of squares. Inner stacks use gap: 0 (touching) and outer columns
-            use gap: 4 — with those numbers the maths line up so all three
-            columns land on the same baseline:
-              column 1 height = 1.4w × 10/7 = 2w
-              columns 2,3    = 2 squares × w + 0 gap = 2w
-            and the gap between middle and right is visibly tighter than
-            the previous 8px. */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', columnGap: 4, padding: '0 4px' }}>
-          <div style={{ aspectRatio: '7/10', overflow: 'hidden' }}>
+        {/* Single flat 2-row grid. Column 1 spans both rows so its height
+            equals (row 1 + gap + row 2) — exactly the height of the two-
+            square stacks in columns 2 and 3. With gap: 4 set as a single
+            value, the column gaps AND row gaps are identical, so the gap
+            you see between the middle column's top and bottom photo
+            matches the gap between the middle and right columns. */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gridTemplateRows: 'auto auto', gap: 4, padding: '0 4px' }}>
+          <div style={{ gridColumn: 1, gridRow: '1 / span 2', overflow: 'hidden' }}>
             <img src="/photos/best.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
-          <div style={{ display: 'grid', gap: 0 }}>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/seated.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/blur.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+          <div style={{ gridColumn: 2, gridRow: 1, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/seated.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <div style={{ display: 'grid', gap: 0 }}>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/drumlogo.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }} />
-            </div>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/singer.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
-            </div>
+          <div style={{ gridColumn: 3, gridRow: 1, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/drumlogo.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }} />
+          </div>
+          <div style={{ gridColumn: 2, gridRow: 2, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/blur.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div style={{ gridColumn: 3, gridRow: 2, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/singer.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
           </div>
         </div>
         <div style={{ padding: '24px 60px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
