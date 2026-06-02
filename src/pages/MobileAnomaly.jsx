@@ -6,7 +6,7 @@ import { WEB3FORMS_KEY, FORM_MIN_DWELL_MS } from '../shared/config.js';
 // Designed for ~390px viewport. Big hero image, burger menu, generous tap
 // targets, single-column flow.
 
-export default function MobileAnomaly({ lang = 'lv' }) {
+export default function MobileAnomaly({ lang = 'lv', setLang }) {
   const t = COPY[lang];
   const [menuOpen, setMenuOpen] = React.useState(false);
   const mountedAt = React.useRef(Date.now());
@@ -97,9 +97,17 @@ export default function MobileAnomaly({ lang = 'lv' }) {
           </nav>
           <div style={{ marginTop: 'auto', display: 'flex', flexDirection: 'column', gap: 20 }}>
             <div style={{ display: 'flex', gap: 14, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em' }}>
-              <span style={{ color: lang === 'lv' ? oxblood : muted, fontWeight: 700 }}>LV</span>
+              <button
+                type="button"
+                onClick={() => setLang && setLang('lv')}
+                aria-pressed={lang === 'lv'}
+                style={{ all: 'unset', cursor: 'pointer', color: lang === 'lv' ? oxblood : muted, fontWeight: 700 }}>LV</button>
               <span style={{ opacity: 0.3 }}>/</span>
-              <span style={{ color: lang === 'en' ? oxblood : muted, fontWeight: 700 }}>EN</span>
+              <button
+                type="button"
+                onClick={() => setLang && setLang('en')}
+                aria-pressed={lang === 'en'}
+                style={{ all: 'unset', cursor: 'pointer', color: lang === 'en' ? oxblood : muted, fontWeight: 700 }}>EN</button>
             </div>
             <a href="#forma" onClick={() => setMenuOpen(false)} className="ma-cta">
               {lang === 'lv' ? 'Rezervēt' : 'Book'} →

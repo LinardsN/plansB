@@ -1,10 +1,14 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Photos from '../pages/Photos.jsx';
+import { useLang } from '../shared/useLang.js';
 import '../shared/fonts.css';
 import '../shared/global.css';
 import '../shared/responsive.css';
 
-createRoot(document.getElementById('root')).render(
-  <Photos lang="lv" grain={0.08} />
-);
+function App() {
+  const [lang] = useLang();
+  return <Photos lang={lang} grain={0.08} />;
+}
+
+createRoot(document.getElementById('root')).render(<App />);

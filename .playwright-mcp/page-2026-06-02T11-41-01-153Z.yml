@@ -1,0 +1,145 @@
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - link "Plāns B — dzīva mūzika" [ref=e5] [cursor=pointer]:
+      - /url: /
+      - img "Plāns B — dzīva mūzika" [ref=e6]
+    - navigation [ref=e7]:
+      - link "/Par mums" [ref=e8] [cursor=pointer]:
+        - /url: "#about"
+      - link "/Pakalpojumi" [ref=e9] [cursor=pointer]:
+        - /url: "#services"
+      - link "/Galerija" [ref=e10] [cursor=pointer]:
+        - /url: /galerija/
+      - link "/BILDES" [ref=e11] [cursor=pointer]:
+        - /url: /bildes/
+      - link "/Sazināties" [ref=e12] [cursor=pointer]:
+        - /url: "#contact"
+    - generic [ref=e13]:
+      - generic [ref=e14]:
+        - button "LV" [pressed] [ref=e15] [cursor=pointer]
+        - generic [ref=e16]: /
+        - button "EN" [ref=e17] [cursor=pointer]
+      - link "Rezervēt →" [ref=e18] [cursor=pointer]:
+        - /url: "#forma"
+        - text: Rezervēt
+        - generic [ref=e19]: →
+  - generic [ref=e20]:
+    - generic [ref=e21]:
+      - generic [ref=e22]: /PIEEJAMI 2026
+      - generic [ref=e24]: /N°01 — DZĪVĀ MŪZIKA
+      - generic [ref=e25]: /LIEPĀJA — LV
+    - heading "Vakars, kuru atcerēsies." [level=1] [ref=e28]:
+      - text: Vakars,
+      - text: kuru
+      - emphasis [ref=e29]: atcerēsies.
+  - generic [ref=e30]:
+    - generic [ref=e32]:
+      - generic [ref=e33]:
+        - generic [ref=e34]: /KLUSAIS SASTĀVS
+        - generic [ref=e36]: 01 / 03
+      - heading "Pieci no Liepājas, viens vakars priekš tevis." [level=2] [ref=e37]
+    - generic [ref=e40]:
+      - generic [ref=e41]: /KLUSAIS SASTĀVS
+      - paragraph [ref=e42]: No nogurušām stundām un nepateiktiem vārdiem, kolektīvs, kas radies ap skaņas un kustības pulsu.
+    - generic [ref=e43]:
+      - generic [ref=e44]:
+        - text: /PAR MUMS
+        - generic [ref=e45]: Mēs spēlējam to, ko gribi dzirdēt. Un to, ko vēl nezini, ka gribi.
+      - paragraph [ref=e46]: Plāns B ir piecu cilvēku sastāvs no Liepājas. Klasika, mūsdienu hīti, latviešu zelta fonds, drīzumā arī oriģinālmūzika. Vakara repertuāru lasām pēc telpas.
+  - generic [ref=e47]:
+    - generic [ref=e49]:
+      - generic [ref=e50]:
+        - generic [ref=e51]: /KO SPĒLĒJAM
+        - generic [ref=e53]: 02 / 03
+      - heading "Kur mēs spēlējam" [level=2] [ref=e54]
+    - generic [ref=e55]:
+      - generic [ref=e56]:
+        - generic [ref=e57]: "01"
+        - heading "Kāzas" [level=3] [ref=e58]
+        - paragraph [ref=e59]: No pirmā deju soļa līdz pēdējam tostam.
+      - generic [ref=e60]:
+        - generic [ref=e61]: "02"
+        - heading "Korporatīvi" [level=3] [ref=e62]
+        - paragraph [ref=e63]: Gada balles, atklāšanas, prezentācijas.
+      - generic [ref=e64]:
+        - generic [ref=e65]: "03"
+        - heading "Privatas ballītes" [level=3] [ref=e66]
+        - paragraph [ref=e67]: Jubilejas, kāzu jubilejas, slēgti pasākumi.
+      - generic [ref=e68]:
+        - generic [ref=e69]: "04"
+        - heading "Festivāli" [level=3] [ref=e70]
+        - paragraph [ref=e71]: Brīvdabas skatuves un pilsētas svētki.
+  - generic [ref=e72]:
+    - generic [ref=e75]:
+      - generic [ref=e76]:
+        - generic [ref=e77]: /NO SKATUVES
+        - generic [ref=e79]: 03 / 03
+      - heading "No skatuves" [level=2] [ref=e80]
+    - generic [ref=e89]:
+      - generic [ref=e90]: /Vakars mēģinājumu telpā · 2026
+      - link "Vairāk foto →" [ref=e91] [cursor=pointer]:
+        - /url: /galerija/
+  - generic [ref=e93]:
+    - generic [ref=e94]:
+      - generic [ref=e95]: /KĀZAS
+      - paragraph [ref=e96]: “Visu vakaru deju grīda nebija tukša ne minūti. Pat vecmāmiņa dejoja.”
+      - text: — Anna & Mārtiņš, kāzas Cēsīs
+    - generic [ref=e97]:
+      - generic [ref=e98]: /KORPORATĪVAIS
+      - paragraph [ref=e99]: “Profesionāli, punktuāli, un viesi joprojām runā par to vakaru.”
+      - text: — SEB Baltika, gada balle
+  - generic [ref=e104]:
+    - generic [ref=e106]:
+      - generic [ref=e107]:
+        - generic [ref=e108]: /SAZINIES
+        - generic [ref=e110]: 04 / 03
+      - heading "Pastāstiet par savu vakaru" [level=2] [ref=e111]
+    - generic [ref=e112]:
+      - generic [ref=e113]:
+        - paragraph [ref=e114]: Atbildam 24 stundu laikā. Aizpildiet formu vai sazinieties tieši — pasakiet pasākuma datumu, vietu un cik viesu.
+        - generic [ref=e115]:
+          - generic [ref=e116]:
+            - generic [ref=e117]: /E-MAIL
+            - link "info@plans-b.lv" [ref=e118] [cursor=pointer]:
+              - /url: mailto:info@plans-b.lv
+          - generic [ref=e119]:
+            - generic [ref=e120]: /BĀZE
+            - generic [ref=e121]: Liepāja, Latvija
+      - generic [ref=e123]:
+        - generic [ref=e124]:
+          - generic [ref=e125]: /Vārds
+          - textbox "/Vārds" [ref=e126]:
+            - /placeholder: ""
+        - generic [ref=e127]:
+          - generic [ref=e128]: /E-pasts
+          - textbox "/E-pasts" [ref=e129]:
+            - /placeholder: ""
+        - generic [ref=e130]:
+          - generic [ref=e131]: /Datums
+          - textbox "/Datums" [ref=e132]:
+            - /placeholder: ""
+        - generic [ref=e133]:
+          - generic [ref=e134]: /Norises vieta
+          - textbox "/Norises vieta" [ref=e135]:
+            - /placeholder: ""
+        - generic [ref=e136]:
+          - generic [ref=e137]: /Pastāstiet vairāk
+          - textbox "/Pastāstiet vairāk" [ref=e138]:
+            - /placeholder: ""
+        - generic [ref=e139]:
+          - generic [ref=e140]: /ATBILDAM 24 STUNDU LAIKĀ
+          - button "Nosūtīt pieprasījumu →" [ref=e141] [cursor=pointer]:
+            - text: Nosūtīt pieprasījumu
+            - generic [ref=e142]: →
+    - generic [ref=e143]:
+      - img "Plāns B" [ref=e144]
+      - generic [ref=e145]: © 2026 · PLANS-B.LV · LIEPĀJA
+      - generic [ref=e146]:
+        - link "/INSTAGRAM ↗" [ref=e147] [cursor=pointer]:
+          - /url: https://www.instagram.com/plans.b
+        - link "/YOUTUBE ↗" [ref=e148] [cursor=pointer]:
+          - /url: https://www.youtube.com/@plans-b
+        - link "/FACEBOOK ↗" [ref=e149] [cursor=pointer]:
+          - /url: https://www.facebook.com/profile.php?id=61589813964001
+        - link "/PRIVĀTUMA PAZIŅOJUMS" [ref=e150] [cursor=pointer]:
+          - /url: /privatums/

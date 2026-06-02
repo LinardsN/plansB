@@ -12,7 +12,7 @@ import { WEB3FORMS_KEY, FORM_MIN_DWELL_MS } from '../shared/config.js';
 // - Asymmetric grids — photo + manifesto card side-by-side with deliberate offset
 // - Small thumbnail strips for "discography" / "lineup"
 
-export default function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
+export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'light' }) {
   const t = COPY[lang];
   const dark = theme === 'dark';
   const mountedAt = React.useRef(Date.now());
@@ -90,9 +90,17 @@ export default function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) 
         </nav>
         <div style={{ display: 'flex', gap: 24, alignItems: 'center', justifySelf: 'end' }}>
           <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em' }}>
-            <span style={{ color: lang === 'lv' ? oxblood : muted, fontWeight: 700 }}>LV</span>
+            <button
+              type="button"
+              onClick={() => setLang && setLang('lv')}
+              aria-pressed={lang === 'lv'}
+              style={{ all: 'unset', cursor: 'pointer', color: lang === 'lv' ? oxblood : muted, fontWeight: 700 }}>LV</button>
             <span style={{ opacity: 0.3 }}>/</span>
-            <span style={{ color: lang === 'en' ? oxblood : muted, fontWeight: 700 }}>EN</span>
+            <button
+              type="button"
+              onClick={() => setLang && setLang('en')}
+              aria-pressed={lang === 'en'}
+              style={{ all: 'unset', cursor: 'pointer', color: lang === 'en' ? oxblood : muted, fontWeight: 700 }}>EN</button>
           </span>
           <a href="#forma" style={{ display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 22px', background: oxblood, color: cream, textDecoration: 'none', fontFamily: 'JetBrains Mono, monospace', fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', transition: 'background .2s' }}
           onMouseEnter={(e) => {e.currentTarget.style.background = ink;}}
