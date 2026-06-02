@@ -38,8 +38,10 @@
 <body>
   <div id="root"></div>
   <!-- Static form for Netlify's build-time form detection. Visitors never see
-       this — React renders the real form. Field names must match the React form. -->
-  <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+       this — React renders the real form. Field names must match the React form.
+       The bare `netlify` attribute (not data-netlify) is what Netlify's HTML
+       parser actually looks for. -->
+  <form name="contact" netlify="" netlify-honeypot="bot-field" hidden>
     <input type="text" name="name" />
     <input type="email" name="email" />
     <input type="text" name="date" />
