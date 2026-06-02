@@ -1,39 +1,42 @@
 <!doctype html>
 <html lang="lv">
 <head>
-  <title>Plāns B — Dzīva mūzika tavam vakaram</title>
   <meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet" />
-<style>
-  html { scroll-behavior: smooth; }
-  html, body { margin: 0; background: #161310; font-family: 'Inter', system-ui, sans-serif; min-height: 100%; }
-  *, *::before, *::after { box-sizing: border-box; }
-</style>
-<script src="https://unpkg.com/react@18.3.1/umd/react.production.min.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.production.min.js" crossorigin="anonymous"></script>
-<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Plāns B — Dzīva mūzika tavam vakaram</title>
+  <meta name="description" content="Plāns B — dzīva mūzika kāzām, korporatīviem un privātām ballītēm. Piecu cilvēku sastāvs no Liepājas." />
+  <meta name="theme-color" content="#161310" />
+  <meta name="color-scheme" content="dark" />
+
+  <link rel="canonical" href="https://plans-b.lv/" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/photos/logo-plans-b.png" />
+  <link rel="apple-touch-icon" href="/photos/logo-plans-b.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Plāns B" />
+  <meta property="og:title" content="Plāns B — Dzīva mūzika tavam vakaram" />
+  <meta property="og:description" content="Piecu cilvēku sastāvs no Liepājas. Vakars, ko atcerēsies." />
+  <meta property="og:url" content="https://plans-b.lv/" />
+  <meta property="og:image" content="https://plans-b.lv/photos/band-hero.jpg" />
+  <meta property="og:locale" content="lv_LV" />
+  <meta property="og:locale:alternate" content="en_US" />
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Plāns B — Dzīva mūzika tavam vakaram" />
+  <meta name="twitter:description" content="Piecu cilvēku sastāvs no Liepājas. Vakars, ko atcerēsies." />
+  <meta name="twitter:image" content="https://plans-b.lv/photos/band-hero.jpg" />
+
+  <!-- Hint to the browser the form posts here, so the connection warms up. -->
+  <link rel="dns-prefetch" href="https://api.web3forms.com" />
+
+  <!-- Preload the two most-visible above-the-fold font files. -->
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-wght-normal.woff2" crossorigin="anonymous" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-wght-normal.woff2" crossorigin="anonymous" />
 </head>
 <body>
   <div id="root"></div>
-  <script type="text/babel" data-presets="react" src="/shared.jsx"></script>
-  <script type="text/babel" data-presets="react" src="/concept-anomaly.jsx"></script>
-  <script type="text/babel" data-presets="react" src="/mobile-anomaly.jsx"></script>
-  <script type="text/babel" data-presets="react">
-    function App() {
-      const [isMobile, setIsMobile] = React.useState(window.innerWidth <= 768);
-      React.useEffect(() => {
-        const onResize = () => setIsMobile(window.innerWidth <= 768);
-        window.addEventListener('resize', onResize);
-        return () => window.removeEventListener('resize', onResize);
-      }, []);
-      return isMobile
-        ? React.createElement(MobileAnomaly, { lang: 'lv' })
-        : React.createElement(ConceptAnomaly, { lang: 'lv', grain: 0.08, theme: 'dark' });
-    }
-    ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
-  </script>
+  <script type="module" src="/src/entries/home.jsx"></script>
 </body>
 </html>

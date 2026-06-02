@@ -1,3 +1,8 @@
+import React from 'react';
+import { COPY } from '../shared/copy.js';
+import { GrainOverlay } from '../shared/components.jsx';
+import { WEB3FORMS_KEY, FORM_MIN_DWELL_MS } from '../shared/config.js';
+
 // Concept — ANOMALY (editorial / poster-zine, ref: 10am Space "Anoma")
 // Layout DNA:
 // - Cream paper with subtle stock texture
@@ -7,9 +12,10 @@
 // - Asymmetric grids — photo + manifesto card side-by-side with deliberate offset
 // - Small thumbnail strips for "discography" / "lineup"
 
-function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
+export default function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
   const t = COPY[lang];
   const dark = theme === 'dark';
+  const mountedAt = React.useRef(Date.now());
 
   // Palette
   const paper = dark ? '#161310' : '#EFE9DC'; // bg
@@ -110,7 +116,7 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
 
         {/* Wide band photo */}
         <div style={{ aspectRatio: '16/7', overflow: 'hidden' }}>
-          <img src="/photos/band-hero.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%', display: 'block' }} />
+          <img src="/photos/band-hero.jpg" alt="" width="2400" height="1050" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%', display: 'block' }} />
         </div>
 
         {/* Headline directly under the photo */}
@@ -128,7 +134,7 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
         <div style={{ position: 'relative', marginTop: 24 }}>
           {/* big background photo — full group shot */}
           <div style={{ aspectRatio: '16/8', overflow: 'hidden' }}>
-            <img src="/photos/band-stage.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%', display: 'block' }} />
+            <img src="/photos/band-stage.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%', display: 'block' }} />
           </div>
           {/* oxblood block over the photo */}
           <div style={{ position: 'absolute', left: '6%', bottom: '-60px', width: '64%', background: oxblood, color: cream, padding: '48px 56px' }}>
@@ -175,22 +181,22 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
         {/* Minimal-style asymmetric grid: 1.4fr / 1fr / 1fr with 7:10 left + 2x2 squares right */}
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 8, padding: '0 8px' }}>
           <div style={{ aspectRatio: '7/10', overflow: 'hidden' }}>
-            <img src="/photos/best.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+            <img src="/photos/best.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
           <div style={{ display: 'grid', gap: 8 }}>
             <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/seated.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+              <img src="/photos/seated.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/blur.jpg" style={{ width: '100%', objectFit: 'cover', height: "360.062px" }} />
+              <img src="/photos/blur.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', objectFit: 'cover', height: "360.062px" }} />
             </div>
           </div>
           <div style={{ display: 'grid', gap: 8 }}>
             <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/drumlogo.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }} />
+              <img src="/photos/drumlogo.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }} />
             </div>
             <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/singer.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
+              <img src="/photos/singer.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
             </div>
           </div>
         </div>
@@ -226,7 +232,7 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
       <section id="contact" style={{ background: dark ? '#0B0907' : ink, color: cream, position: 'relative' }}>
         {/* Atmosphere photo with red wash leading into the contact form */}
         <div style={{ aspectRatio: '16/4', overflow: 'hidden', position: 'relative' }}>
-          <img src="/photos/band-floor.jpg" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%', display: 'block', filter: 'saturate(0.85)' }} />
+          <img src="/photos/band-floor.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%', display: 'block', filter: 'saturate(0.85)' }} />
           <div style={{ position: 'absolute', inset: 0, background: oxblood, mixBlendMode: 'multiply', opacity: 0.55 }} />
           <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 40%, ${oxblood}aa 100%)` }} />
         </div>
@@ -270,15 +276,17 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
               action="https://api.web3forms.com/submit"
               method="POST"
               onSubmit={(e) => {
-                /* Production: client must register at web3forms.com with info@plans-b.lv
-                   to get an access_key, then replace YOUR_WEB3FORMS_KEY below.
-                   Until then, form submits but emails will NOT be delivered. */
+                // Honeypot: humans can't submit faster than the minimum dwell.
+                if (Date.now() - mountedAt.current < FORM_MIN_DWELL_MS) {
+                  e.preventDefault();
+                }
               }}
               style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
-              <input type="hidden" name="access_key" value="761a9037-6dc9-44a3-bece-ba7b93847c69" />
+              <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
               <input type="hidden" name="subject" value="Plāns B — jauns pieprasījums" />
               <input type="hidden" name="from_name" value="plans-b.lv" />
-              <input type="checkbox" name="botcheck" style={{ display: 'none' }} />
+              {/* Web3Forms honeypot: filled by bots, ignored by Web3Forms otherwise. */}
+              <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} aria-hidden="true" />
               {[
               ['name', t.fields.name, '', 'text'],
               ['email', t.fields.email, '', 'email'],
@@ -287,7 +295,7 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
               map(([k, l, ph, type]) =>
               <label key={k} style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
                   <span className="anom-mono" style={{ fontSize: 9, opacity: 0.55 }}>/{l}</span>
-                  <input type={type} name={k} placeholder={ph} className="anom-input" required />
+                  <input type={type} name={k} placeholder={ph} className="anom-input" required autoComplete={k === 'email' ? 'email' : k === 'name' ? 'name' : 'off'} />
                 </label>
               )}
               <label style={{ gridColumn: '1 / -1', display: 'flex', flexDirection: 'column', gap: 10 }}>
@@ -309,16 +317,19 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
         <div style={{ marginTop: 100, paddingTop: 32, borderTop: `1px solid ${cream}1f`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
           <img src="/photos/logo-plans-b.png" alt="Plāns B" style={{ height: 48, width: 'auto', display: 'block' }} />
           <span className="anom-mono" style={{ fontSize: 10, opacity: 0.5 }}>© {new Date().getFullYear()} · PLANS-B.LV · LIEPĀJA</span>
-          <div style={{ display: 'flex', gap: 24 }}>
+          <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
             {[
               ['Instagram', 'https://www.instagram.com/plans.b'],
               ['YouTube', 'https://www.youtube.com/@plans-b'],
               ['Facebook', 'https://www.facebook.com/profile.php?id=61589813964001'],
             ].map(([s, href], i) =>
-            <a key={i} href={href} target="_blank" rel="noreferrer" className="anom-mono" style={{ color: cream, opacity: 0.7, textDecoration: 'none', fontSize: 11 }}>
+            <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="anom-mono" style={{ color: cream, opacity: 0.7, textDecoration: 'none', fontSize: 11 }}>
                 /{s.toUpperCase()} ↗
               </a>
             )}
+            <a href="/privatums/" className="anom-mono" style={{ color: cream, opacity: 0.55, textDecoration: 'none', fontSize: 11 }}>
+              /{t.privacyLink.toUpperCase()}
+            </a>
           </div>
         </div>
 
@@ -329,5 +340,3 @@ function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) {
     </div>);
 
 }
-
-window.ConceptAnomaly = ConceptAnomaly;

@@ -1,12 +1,16 @@
+import React from 'react';
+import { GrainOverlay } from '../shared/components.jsx';
+import { COPY } from '../shared/copy.js';
+
 // Anomaly Gallery — separate /galerija page for band promo photos.
 // Same dark palette as ConceptAnomaly. View-only (no download buttons), bigger grid.
 
-function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
+export default function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
+  const t = COPY[lang];
   const paper = '#161310';
   const ink = '#F0E8D8';
   const oxblood = '#B23A3F';
   const cream = '#F5EFE2';
-  const muted = '#F0E8D880';
 
   // Band promo photos — different content from /bildes (event photos)
   const photos = [
@@ -70,7 +74,7 @@ function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
           {photos.map((p, i) => (
             <figure key={i} style={{ margin: 0, marginBottom: 16, breakInside: 'avoid' }}>
               <div className="ag-card" style={{ aspectRatio: p.ar }}>
-                <img src={p.src} style={{ objectPosition: p.pos }} alt="" />
+                <img src={p.src} alt="" loading="lazy" decoding="async" style={{ objectPosition: p.pos }} />
               </div>
             </figure>
           ))}
@@ -80,16 +84,19 @@ function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
       {/* Footer */}
       <footer style={{ padding: '40px 60px', borderTop: `1px solid ${ink}15`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
         <img src="/photos/logo-plans-b.png" alt="Plāns B" style={{ height: 44, width: 'auto', display: 'block' }} />
-        <div style={{ display: 'flex', gap: 24 }}>
+        <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
           {[
             ['Instagram', 'https://www.instagram.com/plans.b'],
             ['YouTube', 'https://www.youtube.com/@plans-b'],
             ['Facebook', 'https://www.facebook.com/profile.php?id=61589813964001'],
           ].map(([s, href], i) => (
-            <a key={i} href={href} target="_blank" rel="noreferrer" className="ag-mono ag-link" style={{ fontSize: 11 }}>
+            <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="ag-mono ag-link" style={{ fontSize: 11 }}>
               /{s.toUpperCase()} ↗
             </a>
           ))}
+          <a href="/privatums/" className="ag-mono ag-link" style={{ fontSize: 11 }}>
+            /{t.privacyLink.toUpperCase()}
+          </a>
         </div>
         <span className="ag-mono" style={{ fontSize: 10, opacity: 0.5 }}>© {new Date().getFullYear()} · PLANS-B.LV · LIEPĀJA</span>
       </footer>
@@ -98,5 +105,3 @@ function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
     </div>
   );
 }
-
-window.ConceptAnomalyGallery = ConceptAnomalyGallery;

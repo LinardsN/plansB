@@ -1,10 +1,15 @@
-// MobileAnomaly — mobile-first version of the anomaly-dark concept.
-// Designed for ~390px viewport, renders inside IOSDevice frame.
-// Big hero image, burger menu, generous tap targets, single-column flow.
+import React from 'react';
+import { COPY } from '../shared/copy.js';
+import { WEB3FORMS_KEY, FORM_MIN_DWELL_MS } from '../shared/config.js';
 
-function MobileAnomaly({ lang = 'lv' }) {
+// MobileAnomaly — mobile-first version of the anomaly-dark concept.
+// Designed for ~390px viewport. Big hero image, burger menu, generous tap
+// targets, single-column flow.
+
+export default function MobileAnomaly({ lang = 'lv' }) {
   const t = COPY[lang];
   const [menuOpen, setMenuOpen] = React.useState(false);
+  const mountedAt = React.useRef(Date.now());
 
   // Palette (matches anomaly-dark)
   const bg = '#161310';
@@ -135,7 +140,7 @@ function MobileAnomaly({ lang = 'lv' }) {
           {lang === 'lv' ? <>Pieci no Liepājas,<br />viens vakars <em style={{ fontStyle: 'italic', color: oxblood }}>prieš tevis.</em></> : <>Five from Liepāja,<br />one night <em style={{ fontStyle: 'italic', color: oxblood }}>for you.</em></>}
         </h2>
         <div style={{ aspectRatio: '3/2', overflow: 'hidden', marginBottom: 20 }}>
-          <img src="/photos/band-stage.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%' }} />
+          <img src="/photos/band-stage.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%' }} />
         </div>
         <div style={{ background: oxblood, color: cream, padding: '24px', marginBottom: 28 }}>
           <div className="ma-mono" style={{ marginBottom: 14, opacity: 0.75 }}>/{lang === 'lv' ? 'MANIFESTS' : 'MANIFESTO'}</div>
@@ -187,7 +192,7 @@ function MobileAnomaly({ lang = 'lv' }) {
             ['/photos/band-stage.jpg', 'center 30%', '4/5'],
           ].map(([src, pos, ar], i) => (
             <div key={i} style={{ aspectRatio: ar, overflow: 'hidden' }}>
-              <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos }} />
+              <img src={src} alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: pos }} />
             </div>
           ))}
         </div>
@@ -219,7 +224,7 @@ function MobileAnomaly({ lang = 'lv' }) {
       {/* CONTACT */}
       <section id="contact" style={{ background: '#0B0907', color: cream, position: 'relative' }}>
         <div style={{ aspectRatio: '16/8', overflow: 'hidden', position: 'relative' }}>
-          <img src="/photos/band-floor.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%' }} />
+          <img src="/photos/band-floor.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%' }} />
           <div style={{ position: 'absolute', inset: 0, background: oxblood, mixBlendMode: 'multiply', opacity: 0.6 }} />
           <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 40%, ${oxblood}cc 100%)` }} />
         </div>
@@ -243,11 +248,16 @@ function MobileAnomaly({ lang = 'lv' }) {
             id="forma"
             action="https://api.web3forms.com/submit"
             method="POST"
+            onSubmit={(e) => {
+              if (Date.now() - mountedAt.current < FORM_MIN_DWELL_MS) {
+                e.preventDefault();
+              }
+            }}
             style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <input type="hidden" name="access_key" value="761a9037-6dc9-44a3-bece-ba7b93847c69" />
+            <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
             <input type="hidden" name="subject" value="Plāns B — jauns pieprasījums" />
             <input type="hidden" name="from_name" value="plans-b.lv" />
-            <input type="checkbox" name="botcheck" style={{ display: 'none' }} />
+            <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} aria-hidden="true" />
 
             {[
               ['name', t.fields.name, 'text'],
@@ -257,7 +267,7 @@ function MobileAnomaly({ lang = 'lv' }) {
             ].map(([k, l, type]) => (
               <label key={k} style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
                 <span className="ma-mono" style={{ opacity: 0.55, fontSize: 9 }}>/{l}</span>
-                <input type={type} name={k} className="ma-input" required />
+                <input type={type} name={k} className="ma-input" required autoComplete={k === 'email' ? 'email' : k === 'name' ? 'name' : 'off'} />
               </label>
             ))}
             <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -282,10 +292,13 @@ function MobileAnomaly({ lang = 'lv' }) {
               ['YouTube', 'https://www.youtube.com/@plans-b'],
               ['Facebook', 'https://www.facebook.com/profile.php?id=61589813964001'],
             ].map(([s, href]) => (
-              <a key={s} href={href} target="_blank" rel="noreferrer" className="ma-mono" style={{ color: cream, opacity: 0.7, textDecoration: 'none', fontSize: 10 }}>
+              <a key={s} href={href} target="_blank" rel="noopener noreferrer" className="ma-mono" style={{ color: cream, opacity: 0.7, textDecoration: 'none', fontSize: 10 }}>
                 /{s.toUpperCase()} ↗
               </a>
             ))}
+            <a href="/privatums/" className="ma-mono" style={{ color: cream, opacity: 0.55, textDecoration: 'none', fontSize: 10 }}>
+              /{t.privacyLink.toUpperCase()}
+            </a>
           </div>
           <span className="ma-mono" style={{ opacity: 0.5, fontSize: 9 }}>© {new Date().getFullYear()} · PLANS-B.LV · LIEPĀJA</span>
         </footer>
@@ -293,5 +306,3 @@ function MobileAnomaly({ lang = 'lv' }) {
     </div>
   );
 }
-
-window.MobileAnomaly = MobileAnomaly;

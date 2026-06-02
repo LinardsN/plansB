@@ -1,14 +1,18 @@
+import React from 'react';
+import { GrainOverlay } from '../shared/components.jsx';
+import { COPY } from '../shared/copy.js';
+
 // Anomaly Photos — separate page for downloadable event photos.
 // Same dark palette as ConceptAnomaly. No categories — flat grid.
 // Each photo offers JPG + PNG downloads via the `download` attribute.
 
-function ConceptAnomalyPhotos({ lang = 'lv', grain = 0.08 }) {
+export default function ConceptAnomalyPhotos({ lang = 'lv', grain = 0.08 }) {
+  const t = COPY[lang];
   // Same palette as anomaly-dark
   const paper = '#161310';
   const ink = '#F0E8D8';
   const oxblood = '#B23A3F';
   const cream = '#F5EFE2';
-  const muted = '#F0E8D880';
   const onInk = '#161310';
 
   // Photo manifest — base name + label. Page assumes each photo has both .jpg and .png versions.
@@ -72,7 +76,7 @@ function ConceptAnomalyPhotos({ lang = 'lv', grain = 0.08 }) {
           {photos.map((p, i) => (
             <figure key={p.base} style={{ margin: 0 }}>
               <div className="ap-card" style={{ aspectRatio: '4/5' }}>
-                <img src={`/photos/${p.base}.jpg`} alt={p.label} />
+                <img src={`/photos/${p.base}.jpg`} alt={p.label} loading="lazy" decoding="async" />
                 <div className="ap-actions">
                   <div>
                     <div className="ap-display" style={{ fontSize: 16, color: cream, marginBottom: 4 }}>
@@ -109,16 +113,19 @@ function ConceptAnomalyPhotos({ lang = 'lv', grain = 0.08 }) {
       {/* Footer */}
       <footer style={{ padding: '40px 60px', borderTop: `1px solid ${ink}15`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
         <img src="/photos/logo-plans-b.png" alt="Plāns B" style={{ height: 44, width: 'auto', display: 'block' }} />
-        <div style={{ display: 'flex', gap: 24 }}>
+        <div style={{ display: 'flex', gap: 24, alignItems: 'center', flexWrap: 'wrap' }}>
           {[
             ['Instagram', 'https://www.instagram.com/plans.b'],
             ['YouTube', 'https://www.youtube.com/@plans-b'],
             ['Facebook', 'https://www.facebook.com/profile.php?id=61589813964001'],
           ].map(([s, href], i) => (
-            <a key={i} href={href} target="_blank" rel="noreferrer" className="ap-mono ap-link" style={{ fontSize: 11 }}>
+            <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="ap-mono ap-link" style={{ fontSize: 11 }}>
               /{s.toUpperCase()} ↗
             </a>
           ))}
+          <a href="/privatums/" className="ap-mono ap-link" style={{ fontSize: 11 }}>
+            /{t.privacyLink.toUpperCase()}
+          </a>
         </div>
         <span className="ap-mono" style={{ fontSize: 10, opacity: 0.5 }}>© {new Date().getFullYear()} · PLANS-B.LV · LIEPĀJA</span>
       </footer>
@@ -127,5 +134,3 @@ function ConceptAnomalyPhotos({ lang = 'lv', grain = 0.08 }) {
     </div>
   );
 }
-
-window.ConceptAnomalyPhotos = ConceptAnomalyPhotos;
