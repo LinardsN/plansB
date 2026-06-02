@@ -193,8 +193,8 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
             you see between the middle column's top and bottom photo
             matches the gap between the middle and right columns. */}
         <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gridTemplateRows: 'auto auto', gap: 4, padding: '0 4px' }}>
-          <div style={{ gridColumn: 1, gridRow: '1 / span 2', overflow: 'hidden' }}>
-            <img src="/photos/best.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+          <div style={{ gridColumn: 1, gridRow: '1 / span 2', position: 'relative', overflow: 'hidden' }}>
+            <img src="/photos/best.jpg" alt="" loading="lazy" decoding="async" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
           <div style={{ gridColumn: 2, gridRow: 1, aspectRatio: '1', overflow: 'hidden' }}>
             <img src="/photos/seated.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
