@@ -186,27 +186,25 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
         <div style={{ padding: '0 60px' }}>
           <SectionHead slash={lang === 'lv' ? 'NO SKATUVES' : 'FROM THE STAGE'} num="03 / 03" title={t.galleryTitle} />
         </div>
-        {/* Minimal-style asymmetric grid: 1.4fr / 1fr / 1fr with the left
-            column stretching to match the two-square stacks on the right. */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 8, padding: '0 8px', alignItems: 'stretch' }}>
-          <div style={{ overflow: 'hidden', minHeight: 0 }}>
+        {/* Flat 2-row grid: column 1 spans both rows so its height equals
+            (row1 + gap + row2) = exactly the two-square stacks beside it.
+            Row heights come from the squares' aspectRatio: 1, so all three
+            columns end on the same baseline. */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gridTemplateRows: 'auto auto', gap: 8, padding: '0 8px' }}>
+          <div style={{ gridColumn: 1, gridRow: '1 / span 2', overflow: 'hidden' }}>
             <img src="/photos/best.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
-          <div style={{ display: 'grid', gap: 8 }}>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/seated.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/blur.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-            </div>
+          <div style={{ gridColumn: 2, gridRow: 1, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/seated.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
           </div>
-          <div style={{ display: 'grid', gap: 8 }}>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/drumlogo.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }} />
-            </div>
-            <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/singer.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
-            </div>
+          <div style={{ gridColumn: 3, gridRow: 1, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/drumlogo.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 25%' }} />
+          </div>
+          <div style={{ gridColumn: 2, gridRow: 2, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/blur.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+          </div>
+          <div style={{ gridColumn: 3, gridRow: 2, aspectRatio: '1', overflow: 'hidden' }}>
+            <img src="/photos/singer.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 20%' }} />
           </div>
         </div>
         <div style={{ padding: '24px 60px 0', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
