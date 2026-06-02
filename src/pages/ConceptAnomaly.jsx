@@ -47,7 +47,7 @@ export default function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) 
     .anom-input:-webkit-autofill, .anom-input:-webkit-autofill:hover, .anom-input:-webkit-autofill:focus, .anom-input:-webkit-autofill:active { -webkit-text-fill-color: ${cream} !important; -webkit-box-shadow: 0 0 0 1000px ${dark ? '#0B0907' : ink} inset !important; transition: background-color 5000s ease-in-out 0s; caret-color: ${cream}; }
     .anom-row-link { display: grid; grid-template-columns: 80px 1fr 1fr 1fr; gap: 24px; padding: 20px 24px; align-items: baseline; color: ${cream}; text-decoration: none; border-top: 1px solid ${cream}1a; transition: background .2s; }
     .anom-row-link:hover { background: ${oxbloodDeep}; }
-    #contact { scroll-margin-top: 18vh; }
+    #contact { scroll-margin-top: 40px; }
     #about, #services, #gallery, #forma { scroll-margin-top: 14vh; }
   `;
 
@@ -229,7 +229,7 @@ export default function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) 
       </section>
 
       {/* CONTACT — red-overlay photo banner + dark form */}
-      <section id="contact" style={{ background: dark ? '#0B0907' : ink, color: cream, position: 'relative' }}>
+      <section style={{ background: dark ? '#0B0907' : ink, color: cream, position: 'relative' }}>
         {/* Atmosphere photo with red wash leading into the contact form */}
         <div style={{ aspectRatio: '16/4', overflow: 'hidden', position: 'relative' }}>
           <img src="/photos/band-floor.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%', display: 'block', filter: 'saturate(0.85)' }} />
@@ -237,7 +237,7 @@ export default function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) 
           <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 40%, ${oxblood}aa 100%)` }} />
         </div>
 
-        <div style={{ padding: '120px 60px 80px' }}>
+        <div id="contact" style={{ padding: '120px 60px 80px' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: 40, marginBottom: 56 }}>
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 24 }}>

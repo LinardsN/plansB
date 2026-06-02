@@ -32,7 +32,7 @@ export default function MobileAnomaly({ lang = 'lv' }) {
     .ma-section-head { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
     .ma-section-rule { flex: 1; height: 1px; background: ${ink}25; }
     /* Scroll offsets so anchor-jump lands the title/form near the middle of the viewport */
-    #contact { scroll-margin-top: 22vh; }
+    #contact { scroll-margin-top: 24px; }
     #about, #services, #gallery { scroll-margin-top: 18vh; }
     #forma { scroll-margin-top: 24vh; }
   `;
@@ -222,13 +222,13 @@ export default function MobileAnomaly({ lang = 'lv' }) {
       </section>
 
       {/* CONTACT */}
-      <section id="contact" style={{ background: '#0B0907', color: cream, position: 'relative' }}>
+      <section style={{ background: '#0B0907', color: cream, position: 'relative' }}>
         <div style={{ aspectRatio: '16/8', overflow: 'hidden', position: 'relative' }}>
           <img src="/photos/band-floor.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%' }} />
           <div style={{ position: 'absolute', inset: 0, background: oxblood, mixBlendMode: 'multiply', opacity: 0.6 }} />
           <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, transparent 40%, ${oxblood}cc 100%)` }} />
         </div>
-        <div style={{ padding: '48px 20px 40px' }}>
+        <div id="contact" style={{ padding: '48px 20px 40px' }}>
           <SectionHead num="04" label={lang === 'lv' ? 'SAZINIES' : 'GET IN TOUCH'} />
           <h2 className="ma-display" style={{ fontSize: 36, margin: '0 0 16px', color: cream, lineHeight: 1 }}>
             {t.contactTitle}
