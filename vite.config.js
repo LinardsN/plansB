@@ -17,6 +17,7 @@ export default defineConfig({
         galerija: resolve(root, 'galerija/index.html'),
         bildes: resolve(root, 'bildes/index.html'),
         privatums: resolve(root, 'privatums/index.html'),
+        paldies: resolve(root, 'paldies/index.html'),
         notFound: resolve(root, '404.html'),
       },
     },

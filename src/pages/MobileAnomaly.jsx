@@ -1,6 +1,6 @@
 import React from 'react';
 import { COPY } from '../shared/copy.js';
-import { WEB3FORMS_KEY, FORM_MIN_DWELL_MS } from '../shared/config.js';
+import { FORM_MIN_DWELL_MS } from '../shared/config.js';
 
 // MobileAnomaly — mobile-first version of the anomaly-dark concept.
 // Designed for ~390px viewport. Big hero image, burger menu, generous tap
@@ -254,18 +254,21 @@ export default function MobileAnomaly({ lang = 'lv', setLang }) {
 
           <form
             id="forma"
-            action="https://api.web3forms.com/submit"
+            name="contact"
             method="POST"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+            action="/paldies/"
             onSubmit={(e) => {
               if (Date.now() - mountedAt.current < FORM_MIN_DWELL_MS) {
                 e.preventDefault();
               }
             }}
             style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-            <input type="hidden" name="subject" value="Plāns B — jauns pieprasījums" />
-            <input type="hidden" name="from_name" value="plans-b.lv" />
-            <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} aria-hidden="true" />
+            <input type="hidden" name="form-name" value="contact" />
+            <p style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
+              <label>Don’t fill this out if you’re human: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+            </p>
 
             {[
               ['name', t.fields.name, 'text'],

@@ -28,9 +28,6 @@
   <meta name="twitter:description" content="Piecu cilvēku sastāvs no Liepājas. Vakars, ko atcerēsies." />
   <meta name="twitter:image" content="https://plans-b.lv/photos/band-hero.jpg" />
 
-  <!-- Hint to the browser the form posts here, so the connection warms up. -->
-  <link rel="dns-prefetch" href="https://api.web3forms.com" />
-
   <!-- Preload the LCP hero so the browser starts the request before React mounts. -->
   <link rel="preload" as="image" href="/photos/band-hero.jpg" fetchpriority="high" />
 
@@ -40,6 +37,16 @@
 </head>
 <body>
   <div id="root"></div>
+  <!-- Static form for Netlify's build-time form detection. Visitors never see
+       this — React renders the real form. Field names must match the React form. -->
+  <form name="contact" data-netlify="true" data-netlify-honeypot="bot-field" hidden>
+    <input type="text" name="name" />
+    <input type="email" name="email" />
+    <input type="text" name="date" />
+    <input type="text" name="venue" />
+    <textarea name="message"></textarea>
+    <input type="text" name="bot-field" />
+  </form>
   <script type="module" src="/src/entries/home.jsx"></script>
 </body>
 </html>

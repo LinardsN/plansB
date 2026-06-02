@@ -92,20 +92,21 @@ export default function Privacy() {
 
         <div className="pv-section">
           <h2>4. Kam datus nodod</h2>
-          <p>Formas iesniegšanu apstrādā <strong>Web3Forms</strong> (Notionics
-            Technologies Pvt. Ltd.) kā mūsu datu apstrādātājs — viņi pārsūta
-            ziņojumu uz info@plans-b.lv un to neizmanto citiem mērķiem. Web3Forms
-            servera infrastruktūra atrodas ārpus ES; pārsūtīšana balstās uz
+          <p>Formas iesniegšanu apstrādā <strong>Netlify, Inc.</strong> (vietnes
+            mitinātājs) kā mūsu datu apstrādātājs — iesniegumi tiek saglabāti
+            Netlify infrastruktūrā un nosūtīti pa e-pastu uz info@plans-b.lv.
+            Netlify infrastruktūra atrodas ārpus ES; pārsūtīšana balstās uz
             EK standarta līguma klauzulām. Plašāka informācija:{' '}
-            <a className="pv-link" href="https://web3forms.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer">web3forms.com/legal/privacy-policy</a>.
+            <a className="pv-link" href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">netlify.com/privacy</a>.
           </p>
           <p>Saturu redz tikai Plāns B dalībnieki, kas atbild uz pieprasījumiem.
             Mēs nepārdodam un nedalāmies ar datiem.</p>
-          <p className="pv-en">Recipients: form submissions are routed through
-            Web3Forms (Notionics Technologies Pvt. Ltd.) as our processor; they
-            forward the message to info@plans-b.lv. Web3Forms infrastructure is
-            outside the EU; transfers rely on EC Standard Contractual Clauses.
-            Only Plāns B members read the messages. We do not sell or share data.</p>
+          <p className="pv-en">Recipients: form submissions are processed by
+            Netlify, Inc. (our site host) as our processor; submissions are
+            stored in Netlify's infrastructure and emailed to info@plans-b.lv.
+            Netlify infrastructure is outside the EU; transfers rely on EC
+            Standard Contractual Clauses. Only Plāns B members read the messages.
+            We do not sell or share data.</p>
         </div>
 
         <div className="pv-section">

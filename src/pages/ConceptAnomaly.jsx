@@ -1,7 +1,7 @@
 import React from 'react';
 import { COPY } from '../shared/copy.js';
 import { GrainOverlay } from '../shared/components.jsx';
-import { WEB3FORMS_KEY, FORM_MIN_DWELL_MS } from '../shared/config.js';
+import { FORM_MIN_DWELL_MS } from '../shared/config.js';
 
 // Concept — ANOMALY (editorial / poster-zine, ref: 10am Space "Anoma")
 // Layout DNA:
@@ -281,20 +281,24 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
           <div>
             <form
               id="forma"
-              action="https://api.web3forms.com/submit"
+              name="contact"
               method="POST"
+              data-netlify="true"
+              data-netlify-honeypot="bot-field"
+              action="/paldies/"
               onSubmit={(e) => {
-                // Honeypot: humans can't submit faster than the minimum dwell.
+                // Humans can't fill out the whole form faster than the minimum dwell.
                 if (Date.now() - mountedAt.current < FORM_MIN_DWELL_MS) {
                   e.preventDefault();
                 }
               }}
               style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
-              <input type="hidden" name="access_key" value={WEB3FORMS_KEY} />
-              <input type="hidden" name="subject" value="Plāns B — jauns pieprasījums" />
-              <input type="hidden" name="from_name" value="plans-b.lv" />
-              {/* Web3Forms honeypot: filled by bots, ignored by Web3Forms otherwise. */}
-              <input type="checkbox" name="botcheck" tabIndex={-1} autoComplete="off" style={{ display: 'none' }} aria-hidden="true" />
+              {/* Required by Netlify Forms when the form is React-rendered. */}
+              <input type="hidden" name="form-name" value="contact" />
+              {/* Honeypot — visually hidden; bots fill it, Netlify drops those submissions. */}
+              <p style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
+                <label>Don’t fill this out if you’re human: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+              </p>
               {[
               ['name', t.fields.name, '', 'text'],
               ['email', t.fields.email, '', 'email'],
