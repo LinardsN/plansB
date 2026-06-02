@@ -30,33 +30,37 @@ npm run preview   # serve dist/ locally (http://localhost:4173)
 
 Node 22 recommended.
 
-## Deploy to Cloudflare Pages (direct upload, no Git link)
+## Deploy to Netlify (auto-deploy from GitHub)
 
-Hosting is Cloudflare's free Pages product: unlimited bandwidth, unlimited requests, free SSL, free custom domain. We deploy by uploading `dist/` from your laptop — Cloudflare never touches GitHub.
+Hosting is Netlify's free tier: 100 GB bandwidth/month, free SSL, free custom domain, automatic HTTPS. Every push to `main` rebuilds and redeploys the site in ~1 minute.
 
-### First-time setup (~10 minutes)
+### First-time setup (~5 minutes)
 
-1. **Create a Cloudflare account** at [dash.cloudflare.com](https://dash.cloudflare.com) (free, no card).
-2. **Build locally** in this folder:
-   ```bash
-   npm install
-   npm run build
-   ```
-   The `dist/` folder now contains the finished site.
-3. **Create the Pages project** — Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** tab → **Upload assets**. Project name: `plans-b`. Drag the `dist/` folder onto the upload box. ~30 seconds and Cloudflare gives you a `plans-b.pages.dev` URL.
-4. **Custom domain** — inside the project → **Custom domains** → **Set up a custom domain** → enter `plans-b.lv`. Repeat for `www.plans-b.lv`. Cloudflare walks you through the DNS step (instructions differ depending on where you bought the domain). SSL cert is automatic. The `_redirects` file forwards `www.plans-b.lv/*` to `plans-b.lv/:splat`.
+1. **Create a Netlify account** at [app.netlify.com/signup](https://app.netlify.com/signup) (free, no card). Sign in with GitHub for the easiest flow.
+2. **Import the GitHub repo** — Netlify dashboard → **Add new site** → **Import an existing project** → **Deploy with GitHub** → authorize Netlify → pick the `plansB` repo.
+3. **Build settings** are auto-detected from `netlify.toml` in the repo:
+   - Build command: `npm run build`
+   - Publish directory: `dist`
+   - Node version: 22
+   Click **Deploy**. First build runs in ~1 minute. You get a `<random-name>.netlify.app` URL.
 
-### Re-deploy after any change (one command)
-
-Once the project exists, future deploys are a single command:
+### After every change
 
 ```bash
-npm run deploy
+git push
 ```
 
-This builds, then uploads to the existing `plans-b` project. The first time it runs it'll open a browser for `wrangler login` — pick your Cloudflare account, authorize once, never again.
+Netlify watches the repo, sees the push, runs `npm run build`, deploys `dist/`. Site updates in ~1 minute. No dashboard clicks, no CLI.
 
-If you prefer the dashboard: run `npm run build`, then drag the new `dist/` folder onto the project → **Create deployment** → upload.
+(You can also trigger a manual deploy locally with `npm run deploy` — it uses the Netlify CLI to upload `dist/` directly without going through GitHub, useful for testing.)
+
+### Custom domain (plans-b.lv)
+
+Once the site is live at the netlify.app URL, attach the real domain. **No nameserver migration needed** — Kristaps adds two records at NIC.LV and his email stays untouched.
+
+1. Netlify project → **Domain management** → **Add a domain** → `plans-b.lv`.
+2. Netlify shows you exactly which records to add at NIC.LV (typically one A record for the apex, one CNAME for `www`). MX records for Google Workspace stay exactly as-is.
+3. After NIC.LV propagates (~30 min), Netlify auto-issues an SSL cert. `_redirects` then forwards `www → apex`.
 
 ## Web3Forms hardening (do this before going public)
 
