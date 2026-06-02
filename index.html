@@ -40,8 +40,10 @@
   <!-- Static form for Netlify's build-time form detection. Visitors never see
        this — React renders the real form. Field names must match the React form.
        The bare `netlify` attribute (not data-netlify) is what Netlify's HTML
-       parser actually looks for. -->
-  <form name="contact" netlify="" netlify-honeypot="bot-field" hidden>
+       parser actually looks for. action="/paldies/" is what Netlify uses for
+       the post-submit redirect; without it Netlify falls back to its default
+       thank-you page. -->
+  <form name="contact" netlify="" netlify-honeypot="bot-field" action="/paldies/" hidden>
     <input type="text" name="name" />
     <input type="email" name="email" />
     <input type="text" name="date" />
