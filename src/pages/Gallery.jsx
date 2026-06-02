@@ -4,6 +4,8 @@ import { COPY } from '../shared/copy.js';
 
 // Anomaly Gallery — separate /galerija page for band promo photos.
 // Same dark palette as ConceptAnomaly. View-only (no download buttons), bigger grid.
+// Click any photo to open a full-screen lightbox; Escape or backdrop click closes,
+// Arrow keys cycle through the set.
 
 export default function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
   const t = COPY[lang];
@@ -11,6 +13,7 @@ export default function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
   const ink = '#F0E8D8';
   const oxblood = '#B23A3F';
   const cream = '#F5EFE2';
+  const [openIndex, setOpenIndex] = React.useState(null);
 
   // Band promo photos — different content from /bildes (event photos)
   const photos = [
@@ -37,7 +40,41 @@ export default function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
     .ag-card { overflow: hidden; background: ${paper}; }
     .ag-card img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .5s ease, filter .3s ease; filter: brightness(0.85) contrast(1.05); }
     .ag-card:hover img { transform: scale(1.03); filter: brightness(0.95) contrast(1.05); }
+    .ag-trigger { all: unset; cursor: zoom-in; display: block; width: 100%; }
+    .ag-trigger:focus-visible { outline: 2px solid ${oxblood}; outline-offset: 2px; }
+    .ag-lightbox { position: fixed; inset: 0; z-index: 1000; background: rgba(11,9,7,0.94); display: flex; align-items: center; justify-content: center; padding: 32px; animation: agFade .15s ease-out; }
+    .ag-lightbox img { max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-out; filter: none; }
+    .ag-lb-btn { position: absolute; top: 20px; background: transparent; border: 1px solid ${ink}; color: ${ink}; padding: 8px 14px; cursor: pointer; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; transition: background .15s ease, color .15s ease; }
+    .ag-lb-btn:hover { background: ${ink}; color: ${paper}; }
+    .ag-lb-nav { position: absolute; top: 50%; transform: translateY(-50%); background: transparent; border: 1px solid ${ink}40; color: ${ink}; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 20px; transition: background .15s ease, border-color .15s ease; }
+    .ag-lb-nav:hover { background: ${ink}; color: ${paper}; border-color: ${ink}; }
+    .ag-lb-counter { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: ${ink}80; font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.16em; }
+    @keyframes agFade { from { opacity: 0; } to { opacity: 1; } }
+    @media (max-width: 600px) {
+      .ag-lightbox { padding: 16px; }
+      .ag-lb-nav { width: 40px; height: 40px; }
+    }
   `;
+
+  const close = React.useCallback(() => setOpenIndex(null), []);
+  const next = React.useCallback(() => setOpenIndex((i) => (i + 1) % photos.length), [photos.length]);
+  const prev = React.useCallback(() => setOpenIndex((i) => (i - 1 + photos.length) % photos.length), [photos.length]);
+
+  React.useEffect(() => {
+    if (openIndex === null) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') close();
+      else if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+    };
+    document.addEventListener('keydown', onKey);
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [openIndex, close, next, prev]);
 
   return (
     <div className="ag-root" style={{ position: 'relative' }}>
@@ -73,13 +110,55 @@ export default function ConceptAnomalyGallery({ lang = 'lv', grain = 0.08 }) {
         <div style={{ columnCount: 3, columnGap: 16 }}>
           {photos.map((p, i) => (
             <figure key={i} style={{ margin: 0, marginBottom: 16, breakInside: 'avoid' }}>
-              <div className="ag-card" style={{ aspectRatio: p.ar }}>
-                <img src={p.src} alt="" loading="lazy" decoding="async" style={{ objectPosition: p.pos }} />
-              </div>
+              <button
+                type="button"
+                className="ag-trigger"
+                onClick={() => setOpenIndex(i)}
+                aria-label={lang === 'lv' ? `Atvērt bildi ${i + 1} no ${photos.length}` : `Open photo ${i + 1} of ${photos.length}`}>
+                <div className="ag-card" style={{ aspectRatio: p.ar }}>
+                  <img src={p.src} alt="" loading="lazy" decoding="async" style={{ objectPosition: p.pos }} />
+                </div>
+              </button>
             </figure>
           ))}
         </div>
       </section>
+
+      {/* Lightbox */}
+      {openIndex !== null && (
+        <div
+          className="ag-lightbox"
+          role="dialog"
+          aria-modal="true"
+          aria-label={lang === 'lv' ? 'Bildes skats' : 'Photo viewer'}
+          onClick={close}>
+          <img
+            src={photos[openIndex].src}
+            alt=""
+            onClick={(e) => e.stopPropagation()} />
+          <button
+            type="button"
+            className="ag-lb-btn"
+            style={{ right: 20 }}
+            onClick={(e) => { e.stopPropagation(); close(); }}
+            aria-label={lang === 'lv' ? 'Aizvērt' : 'Close'}>
+            {lang === 'lv' ? 'Aizvērt ×' : 'Close ×'}
+          </button>
+          <button
+            type="button"
+            className="ag-lb-nav"
+            style={{ left: 20 }}
+            onClick={(e) => { e.stopPropagation(); prev(); }}
+            aria-label={lang === 'lv' ? 'Iepriekšējā' : 'Previous'}>←</button>
+          <button
+            type="button"
+            className="ag-lb-nav"
+            style={{ right: 20 }}
+            onClick={(e) => { e.stopPropagation(); next(); }}
+            aria-label={lang === 'lv' ? 'Nākamā' : 'Next'}>→</button>
+          <span className="ag-lb-counter">{String(openIndex + 1).padStart(2, '0')} / {String(photos.length).padStart(2, '0')}</span>
+        </div>
+      )}
 
       {/* Footer */}
       <footer style={{ padding: '40px 60px', borderTop: `1px solid ${ink}15`, display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 24 }}>
