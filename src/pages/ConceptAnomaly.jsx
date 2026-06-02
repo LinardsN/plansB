@@ -314,7 +314,10 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
                 <span className="anom-mono" style={{ fontSize: 9, opacity: 0.55 }}>
                   /{lang === 'lv' ? 'ATBILDAM 24 STUNDU LAIKĀ' : 'WE REPLY WITHIN 24 HOURS'}
                 </span>
-                <button type="submit" className="anom-cta" style={{ background: oxblood, borderColor: oxblood, color: cream }}>
+                <button type="submit" className="anom-cta"
+                  style={{ background: oxblood, borderColor: oxblood, color: cream, transition: 'background .2s ease, color .2s ease, border-color .2s ease' }}
+                  onMouseEnter={(e) => { e.currentTarget.style.background = ink; e.currentTarget.style.color = onInk; e.currentTarget.style.borderColor = ink; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.background = oxblood; e.currentTarget.style.color = cream; e.currentTarget.style.borderColor = oxblood; }}>
                   {t.submit} <span className="anom-cta-arrow">→</span>
                 </button>
               </div>
