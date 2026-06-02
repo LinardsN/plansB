@@ -314,7 +314,7 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
                 <span className="anom-mono" style={{ fontSize: 9, opacity: 0.55 }}>
                   /{lang === 'lv' ? 'ATBILDAM 24 STUNDU LAIKĀ' : 'WE REPLY WITHIN 24 HOURS'}
                 </span>
-                <button type="submit" className="anom-cta" style={{ background: oxblood, borderColor: oxblood }}>
+                <button type="submit" className="anom-cta" style={{ background: oxblood, borderColor: oxblood, color: cream }}>
                   {t.submit} <span className="anom-cta-arrow">→</span>
                 </button>
               </div>
