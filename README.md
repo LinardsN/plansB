@@ -30,29 +30,33 @@ npm run preview   # serve dist/ locally (http://localhost:4173)
 
 Node 22 recommended.
 
-## Deploy to Cloudflare Pages
+## Deploy to Cloudflare Pages (direct upload, no Git link)
 
-Cloudflare Pages is free for static sites — unlimited bandwidth, unlimited requests, 500 builds/month on the free tier. Custom domain and SSL cert are included.
+Hosting is Cloudflare's free Pages product: unlimited bandwidth, unlimited requests, free SSL, free custom domain. We deploy by uploading `dist/` from your laptop — Cloudflare never touches GitHub.
 
-### One-time setup
+### First-time setup (~10 minutes)
 
-1. Push this repo to GitHub.
-2. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick this repo.
-3. Build settings:
-   - **Framework preset:** None
-   - **Build command:** `npm run build`
-   - **Build output directory:** `dist`
-   - **Root directory:** `/` (leave empty)
-   - **Node version:** `22` (set in env var `NODE_VERSION` if Cloudflare picks an older default)
-4. Save and deploy. First build takes ~1 minute.
+1. **Create a Cloudflare account** at [dash.cloudflare.com](https://dash.cloudflare.com) (free, no card).
+2. **Build locally** in this folder:
+   ```bash
+   npm install
+   npm run build
+   ```
+   The `dist/` folder now contains the finished site.
+3. **Create the Pages project** — Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** tab → **Upload assets**. Project name: `plans-b`. Drag the `dist/` folder onto the upload box. ~30 seconds and Cloudflare gives you a `plans-b.pages.dev` URL.
+4. **Custom domain** — inside the project → **Custom domains** → **Set up a custom domain** → enter `plans-b.lv`. Repeat for `www.plans-b.lv`. Cloudflare walks you through the DNS step (instructions differ depending on where you bought the domain). SSL cert is automatic. The `_redirects` file forwards `www.plans-b.lv/*` to `plans-b.lv/:splat`.
 
-Cloudflare automatically picks up `public/_headers` and `public/_redirects` for security headers and the www → apex redirect.
+### Re-deploy after any change (one command)
 
-### Custom domain
+Once the project exists, future deploys are a single command:
 
-1. In the Pages project → **Custom domains** → **Set up a custom domain** → `plans-b.lv`.
-2. Repeat for `www.plans-b.lv`.
-3. Cloudflare handles DNS, SSL cert, and HSTS automatically. The `_redirects` file forwards `www.plans-b.lv/*` to `plans-b.lv/:splat` (301).
+```bash
+npm run deploy
+```
+
+This builds, then uploads to the existing `plans-b` project. The first time it runs it'll open a browser for `wrangler login` — pick your Cloudflare account, authorize once, never again.
+
+If you prefer the dashboard: run `npm run build`, then drag the new `dist/` folder onto the project → **Create deployment** → upload.
 
 ## Web3Forms hardening (do this before going public)
 
@@ -67,7 +71,7 @@ If you ever need to rotate the key:
 
 1. Generate a new key at web3forms.com.
 2. Replace `WEB3FORMS_KEY` in `src/shared/config.js`.
-3. Commit + push → Cloudflare rebuilds automatically.
+3. `npm run deploy` → live in ~30 seconds.
 
 ## Security baseline
 
