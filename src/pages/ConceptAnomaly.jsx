@@ -186,17 +186,18 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
         <div style={{ padding: '0 60px' }}>
           <SectionHead slash={lang === 'lv' ? 'NO SKATUVES' : 'FROM THE STAGE'} num="03 / 03" title={t.galleryTitle} />
         </div>
-        {/* Minimal-style asymmetric grid: 1.4fr / 1fr / 1fr with 7:10 left + 2x2 squares right */}
-        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 8, padding: '0 8px' }}>
-          <div style={{ aspectRatio: '7/10', overflow: 'hidden' }}>
-            <img src="/photos/best.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        {/* Minimal-style asymmetric grid: 1.4fr / 1fr / 1fr with the left
+            column stretching to match the two-square stacks on the right. */}
+        <div style={{ display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr', gap: 8, padding: '0 8px', alignItems: 'stretch' }}>
+          <div style={{ overflow: 'hidden', minHeight: 0 }}>
+            <img src="/photos/best.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
           </div>
           <div style={{ display: 'grid', gap: 8 }}>
             <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
               <img src="/photos/seated.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
             <div style={{ aspectRatio: '1', overflow: 'hidden' }}>
-              <img src="/photos/blur.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', objectFit: 'cover', height: "360.062px" }} />
+              <img src="/photos/blur.jpg" alt="" loading="lazy" decoding="async" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
             </div>
           </div>
           <div style={{ display: 'grid', gap: 8 }}>
@@ -216,22 +217,24 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
         </div>
       </section>
 
-      {/* PRESS / TESTIMONIALS — two-column quote block */}
+      {/* PRESS / TESTIMONIALS — two-column quote block. Both columns are flex
+          columns so each attribution line is pushed to the bottom and the two
+          attributions sit on the same baseline regardless of quote length. */}
       <section style={{ padding: '120px 60px 60px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80 }}>
-          <div>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'stretch' }}>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Slash>{lang === 'lv' ? 'KĀZAS' : 'WEDDINGS'}</Slash>
             <p className="anom-display" style={{ fontSize: 28, lineHeight: 1.15, marginTop: 20, marginBottom: 20, fontStyle: 'normal' }}>
               {t.quoteWedding}
             </p>
-            <span className="anom-mono" style={{ fontSize: 10, opacity: 0.55 }}>{t.quoteWeddingBy}</span>
+            <span className="anom-mono" style={{ fontSize: 10, opacity: 0.55, marginTop: 'auto' }}>{t.quoteWeddingBy}</span>
           </div>
-          <div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
             <Slash>{lang === 'lv' ? 'KORPORATĪVAIS' : 'CORPORATE'}</Slash>
             <p className="anom-display" style={{ fontSize: 28, lineHeight: 1.15, marginTop: 20, marginBottom: 20 }}>
               {t.quoteCorp}
             </p>
-            <span className="anom-mono" style={{ fontSize: 10, opacity: 0.55 }}>{t.quoteCorpBy}</span>
+            <span className="anom-mono" style={{ fontSize: 10, opacity: 0.55, marginTop: 'auto' }}>{t.quoteCorpBy}</span>
           </div>
         </div>
       </section>
