@@ -116,7 +116,7 @@ export default function ConceptAnomaly({ lang, grain = 0.10, theme = 'light' }) 
 
         {/* Wide band photo */}
         <div style={{ aspectRatio: '16/7', overflow: 'hidden' }}>
-          <img src="/photos/band-hero.jpg" alt="" width="2400" height="1050" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%', display: 'block' }} />
+          <img src="/photos/band-hero.jpg" alt="" width="2400" height="1050" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 35%', display: 'block' }} />
         </div>
 
         {/* Headline directly under the photo */}

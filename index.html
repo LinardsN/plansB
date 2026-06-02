@@ -31,6 +31,9 @@
   <!-- Hint to the browser the form posts here, so the connection warms up. -->
   <link rel="dns-prefetch" href="https://api.web3forms.com" />
 
+  <!-- Preload the LCP hero so the browser starts the request before React mounts. -->
+  <link rel="preload" as="image" href="/photos/band-hero.jpg" fetchpriority="high" />
+
   <!-- Preload the two most-visible above-the-fold font files. -->
   <link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin-wght-normal.woff2" crossorigin="anonymous" />
   <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-wght-normal.woff2" crossorigin="anonymous" />

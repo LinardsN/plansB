@@ -111,7 +111,7 @@ export default function MobileAnomaly({ lang = 'lv' }) {
       {/* HERO — big edge-to-edge photo, text below */}
       <section style={{ position: 'relative' }}>
         <div style={{ aspectRatio: '3/4', overflow: 'hidden', position: 'relative' }}>
-          <img src="/photos/band-hero.jpg" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%', display: 'block' }} />
+          <img src="/photos/band-hero.jpg" alt="" fetchPriority="high" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center 30%', display: 'block' }} />
           <div style={{ position: 'absolute', inset: 0, background: `linear-gradient(180deg, ${bg}40 0%, transparent 30%, ${bg}99 100%)` }} />
           {/* meta strip overlay */}
           <div style={{ position: 'absolute', top: 16, left: 20, right: 20, display: 'flex', justifyContent: 'space-between', fontFamily: 'JetBrains Mono, monospace', fontSize: 9, letterSpacing: '0.14em', textTransform: 'uppercase', color: cream, opacity: 0.85 }}>
