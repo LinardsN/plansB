@@ -20,10 +20,9 @@
   # - style-src 'self' 'unsafe-inline': React injects <style> tags and inline
   #   style attributes; 'unsafe-inline' is required for that pattern.
   # - img-src includes data: for the inline SVG grain noise textures.
-  # - form-action 'self': the contact form posts to the same origin (Netlify
-  #   Forms intercepts at the edge).
+  # - form-action allows the contact form to POST to FormSubmit.
   # - upgrade-insecure-requests auto-rewrites stray http:// URLs.
-  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self'; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; form-action 'self' https://formsubmit.co; frame-ancestors 'none'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests
 
 # Vite fingerprints assets — they're immutable, cache hard.
 /assets/*

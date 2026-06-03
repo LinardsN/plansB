@@ -1,6 +1,6 @@
 import React from 'react';
 import { COPY } from '../shared/copy.js';
-import { FORM_MIN_DWELL_MS } from '../shared/config.js';
+import { FORM_MIN_DWELL_MS, FORM_ACTION, FORM_SUCCESS_URL } from '../shared/config.js';
 
 // MobileAnomaly — mobile-first version of the anomaly-dark concept.
 // Designed for ~390px viewport. Big hero image, burger menu, generous tap
@@ -254,20 +254,20 @@ export default function MobileAnomaly({ lang = 'lv', setLang }) {
 
           <form
             id="forma"
-            name="contact"
+            action={FORM_ACTION}
             method="POST"
-            data-netlify="true"
-            data-netlify-honeypot="bot-field"
-            action="/paldies/"
             onSubmit={(e) => {
               if (Date.now() - mountedAt.current < FORM_MIN_DWELL_MS) {
                 e.preventDefault();
               }
             }}
             style={{ display: 'flex', flexDirection: 'column', gap: 18 }}>
-            <input type="hidden" name="form-name" value="contact" />
-            <p style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
-              <label>Don’t fill this out if you’re human: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+            <input type="hidden" name="_subject" value="Plāns B — jauns pieprasījums" />
+            <input type="hidden" name="_next" value={FORM_SUCCESS_URL} />
+            <input type="hidden" name="_captcha" value="false" />
+            <input type="hidden" name="_template" value="table" />
+            <p style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
+              <label>Don’t fill this out if you’re human: <input name="_honey" tabIndex={-1} autoComplete="off" /></label>
             </p>
 
             {[

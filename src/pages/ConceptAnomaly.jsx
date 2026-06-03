@@ -1,7 +1,7 @@
 import React from 'react';
 import { COPY } from '../shared/copy.js';
 import { GrainOverlay } from '../shared/components.jsx';
-import { FORM_MIN_DWELL_MS } from '../shared/config.js';
+import { FORM_MIN_DWELL_MS, FORM_ACTION, FORM_SUCCESS_URL } from '../shared/config.js';
 
 // Concept — ANOMALY (editorial / poster-zine, ref: 10am Space "Anoma")
 // Layout DNA:
@@ -284,11 +284,8 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
           <div>
             <form
               id="forma"
-              name="contact"
+              action={FORM_ACTION}
               method="POST"
-              data-netlify="true"
-              data-netlify-honeypot="bot-field"
-              action="/paldies/"
               onSubmit={(e) => {
                 // Humans can't fill out the whole form faster than the minimum dwell.
                 if (Date.now() - mountedAt.current < FORM_MIN_DWELL_MS) {
@@ -296,11 +293,14 @@ export default function ConceptAnomaly({ lang, setLang, grain = 0.10, theme = 'l
                 }
               }}
               style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 32 }}>
-              {/* Required by Netlify Forms when the form is React-rendered. */}
-              <input type="hidden" name="form-name" value="contact" />
-              {/* Honeypot — visually hidden; bots fill it, Netlify drops those submissions. */}
-              <p style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }}>
-                <label>Don’t fill this out if you’re human: <input name="bot-field" tabIndex={-1} autoComplete="off" /></label>
+              {/* FormSubmit configuration. */}
+              <input type="hidden" name="_subject" value="Plāns B — jauns pieprasījums" />
+              <input type="hidden" name="_next" value={FORM_SUCCESS_URL} />
+              <input type="hidden" name="_captcha" value="false" />
+              <input type="hidden" name="_template" value="table" />
+              {/* Honeypot — visually hidden; bots fill it, FormSubmit drops those submissions. */}
+              <p style={{ position: 'absolute', left: '-10000px', top: 'auto', width: 1, height: 1, overflow: 'hidden' }} aria-hidden="true">
+                <label>Don’t fill this out if you’re human: <input name="_honey" tabIndex={-1} autoComplete="off" /></label>
               </p>
               {[
               ['name', t.fields.name, '', 'text'],

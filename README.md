@@ -5,9 +5,10 @@ Static website for the band **Plāns B** (Liepāja). Anomaly dark theme.
 ## Pages
 
 - `/` — homepage (auto-switches to a mobile-first layout under 768px)
-- `/galerija/` — band photo gallery
+- `/galerija/` — band photo gallery (click to open lightbox)
 - `/bildes/` — downloadable event photos (JPG + PNG)
-- `/privatums/` — GDPR privacy notice (LV + EN)
+- `/privatums/` — GDPR privacy notice (LV + EN, follows language toggle)
+- `/paldies/` — thank-you page after form submission
 - `/404.html` — not-found page
 
 ## Stack
@@ -15,7 +16,7 @@ Static website for the band **Plāns B** (Liepāja). Anomaly dark theme.
 - **Vite** build (multi-page) outputs static HTML/CSS/JS to `dist/`
 - **React 18** (bundled, not loaded from a CDN)
 - **Self-hosted variable fonts** — Inter, Archivo, JetBrains Mono (no Google requests)
-- **Contact form** posts to Web3Forms → delivers to info@plans-b.lv
+- **Contact form** posts to FormSubmit → forwards to the address in `src/shared/config.js`
 
 No server runtime. No analytics. No cookies. No tracking.
 
@@ -30,67 +31,60 @@ npm run preview   # serve dist/ locally (http://localhost:4173)
 
 Node 22 recommended.
 
-## Deploy to Netlify (auto-deploy from GitHub)
+## Deploy to Cloudflare Pages
 
-Hosting is Netlify's free tier: 100 GB bandwidth/month, free SSL, free custom domain, automatic HTTPS. Every push to `main` rebuilds and redeploys the site in ~1 minute.
+Cloudflare Pages is free with no credit caps: unlimited bandwidth, unlimited requests, 500 builds/month on the free tier. Custom domain, SSL cert, DDoS protection, CDN — all included.
 
-### First-time setup (~5 minutes)
+### One-time setup
 
-1. **Create a Netlify account** at [app.netlify.com/signup](https://app.netlify.com/signup) (free, no card). Sign in with GitHub for the easiest flow.
-2. **Import the GitHub repo** — Netlify dashboard → **Add new site** → **Import an existing project** → **Deploy with GitHub** → authorize Netlify → pick the `plansB` repo.
-3. **Build settings** are auto-detected from `netlify.toml` in the repo:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-   - Node version: 22
-   Click **Deploy**. First build runs in ~1 minute. You get a `<random-name>.netlify.app` URL.
+1. Push this repo to GitHub.
+2. Cloudflare dashboard → **Workers & Pages** → **Create** → **Pages** → **Connect to Git** → pick this repo.
+3. Build settings:
+   - **Framework preset:** None
+   - **Build command:** `npm run build`
+   - **Build output directory:** `dist`
+   - **Root directory:** `/` (leave empty)
+   - **Environment variable** `NODE_VERSION` = `22`
+4. Save and deploy. First build takes ~1 minute.
 
-### After every change
+Cloudflare automatically picks up `public/_headers` and `public/_redirects` for security headers and the www → apex redirect.
 
-```bash
-git push
-```
+### Custom domain
 
-Netlify watches the repo, sees the push, runs `npm run build`, deploys `dist/`. Site updates in ~1 minute. No dashboard clicks, no CLI.
+For the apex domain (`plans-b.lv`), Cloudflare Pages requires the domain to use Cloudflare DNS. One-time migration:
 
-(You can also trigger a manual deploy locally with `npm run deploy` — it uses the Netlify CLI to upload `dist/` directly without going through GitHub, useful for testing.)
+1. Cloudflare dashboard → **Connect a domain** → enter `plans-b.lv`.
+2. Cloudflare scans the current NIC.LV DNS and imports the records. **Verify all 5 MX records and 2 TXT records (google-site-verification + DKIM at `google._domainkey`) are present** before continuing — these are Kristaps's Google Workspace email and must not be lost.
+3. Cloudflare gives you two nameservers. Update them at NIC.LV → save.
+4. Propagation takes 1–24 hours; Cloudflare's dashboard shows "Active" when ready.
+5. In the Pages project → **Custom domains** → add `plans-b.lv` and `www.plans-b.lv`. SSL provisions automatically. The `_redirects` file forwards `www.plans-b.lv/*` to `plans-b.lv/:splat`.
 
-### Custom domain (plans-b.lv)
+### Auto-deploy
 
-Once the site is live at the netlify.app URL, attach the real domain. **No nameserver migration needed** — Kristaps adds two records at NIC.LV and his email stays untouched.
+Every push to `main` triggers a Cloudflare build and redeploys in ~60 seconds. No CLI, no dashboard clicks.
 
-1. Netlify project → **Domain management** → **Add a domain** → `plans-b.lv`.
-2. Netlify shows you exactly which records to add at NIC.LV (typically one A record for the apex, one CNAME for `www`). MX records for Google Workspace stay exactly as-is.
-3. After NIC.LV propagates (~30 min), Netlify auto-issues an SSL cert. `_redirects` then forwards `www → apex`.
+## Contact form — first-time activation
 
-## Web3Forms hardening (do this before going public)
+The form posts to FormSubmit at the address configured in `src/shared/config.js` (`FORM_RECIPIENT`). FormSubmit requires a one-time activation:
 
-The Web3Forms access key in `src/shared/config.js` is public by design — Web3Forms keys identify the form, they don't authenticate the sender. The real anti-abuse lives in the Web3Forms dashboard:
+1. Deploy the site.
+2. Submit the form once with any test data.
+3. The first submission triggers a confirmation email from FormSubmit to the address in `FORM_RECIPIENT`.
+4. Open that email, click the activation link, done — all future submissions land in that inbox.
 
-1. Log into [web3forms.com](https://web3forms.com) with the email that owns the key (info@plans-b.lv).
-2. **Allowed Domains** → add `plans-b.lv` and `www.plans-b.lv`. Submissions from any other origin will be rejected.
-3. **Enable Cloudflare Turnstile** (free) for strong bot protection. Web3Forms documents the integration — it's a single hidden input on the form. (The current build relies on the hidden `botcheck` honeypot plus a 2-second submit-time guard. Turnstile is stronger.)
-4. (Optional) Configure **Auto-Reply** so the person who filled the form gets a "we received your message" confirmation in their inbox.
-
-If you ever need to rotate the key:
-
-1. Generate a new key at web3forms.com.
-2. Replace `WEB3FORMS_KEY` in `src/shared/config.js`.
-3. `npm run deploy` → live in ~30 seconds.
+To change the recipient later (e.g. switch from a tester address to `info@plans-b.lv`): edit `FORM_RECIPIENT` in `src/shared/config.js`, commit, push. Cloudflare auto-rebuilds. The new recipient gets a fresh activation email on the next submission.
 
 ## Security baseline
 
-Already in place via this repo:
+Already in place:
 
 - **CSP, HSTS, X-Content-Type-Options, Permissions-Policy, X-Frame-Options, Referrer-Policy** — see `public/_headers`.
-- **No third-party requests at page load** — fonts self-hosted, React bundled, no analytics.
-- **Form honeypots** — Web3Forms `botcheck` hidden checkbox + 2-second submit-time guard.
-- **GDPR privacy notice** at `/privatums/`.
+- **No third-party requests at page load** — fonts self-hosted, React bundled, no analytics, no Google Fonts.
+- **Form spam protection** — visually-hidden honeypot (`_honey`) + 2-second submit-time guard + FormSubmit's own filtering.
+- **GDPR privacy notice** at `/privatums/`, language follows the LV/EN toggle.
 - **External links** use `rel="noopener noreferrer"`.
 
-Things to be aware of:
-
-- The Web3Forms key was committed in the very first commit (and shipped in the old hand-built JSX). If that's a concern, rotate it as described above.
-- `npm audit` reports an esbuild dev-server CVE — it only affects `npm run dev` on a local machine, never the deployed site. Vite's production build doesn't run esbuild at runtime.
+`npm audit` reports an esbuild dev-server CVE — it only affects `npm run dev` on a local machine, never the deployed site.
 
 ## Editing content
 
@@ -102,24 +96,25 @@ Things to be aware of:
 | Gallery (`/galerija/`) | `src/pages/Gallery.jsx` |
 | Event photos (`/bildes/`) | `src/pages/Photos.jsx` |
 | Privacy notice | `src/pages/Privacy.jsx` |
+| Thank-you (`/paldies/`) | `src/pages/ThankYou.jsx` |
 | 404 | `src/pages/NotFound.jsx` |
-| Web3Forms key | `src/shared/config.js` |
+| Form recipient address | `src/shared/config.js` (`FORM_RECIPIENT`) |
 | Security headers | `public/_headers` |
 | `www → apex` redirect | `public/_redirects` |
 | Sitemap | `public/sitemap.xml` |
 
 Photos live in `public/photos/` — referenced as `/photos/X.jpg` from components.
 
-## Optional: strip EXIF from photos
+## Optional: prepare new photos for the web
 
-Photos shot on phones often carry GPS coordinates, camera serial, owner name etc. in EXIF metadata. To remove all of it:
+When dropping new full-size photos into `public/photos/`, run:
 
 ```bash
-brew install exiftool   # one-time
-bash scripts/strip-exif.sh
+bash scripts/optimize-photos.sh   # resize + recompress, ~1800px max edge
+bash scripts/strip-exif.sh         # remove GPS / camera serial metadata (needs `brew install exiftool`)
 ```
 
-The script is idempotent — safe to re-run after adding new photos.
+Both scripts are idempotent — safe to re-run.
 
 ## File layout
 
@@ -129,6 +124,7 @@ plansB/
 ├── galerija/index.html      entry: /galerija/
 ├── bildes/index.html        entry: /bildes/
 ├── privatums/index.html     entry: /privatums/
+├── paldies/index.html       entry: /paldies/
 ├── 404.html                 entry: /404.html
 ├── public/                  copied verbatim to dist/
 │   ├── _headers             Cloudflare security + cache headers
@@ -139,9 +135,11 @@ plansB/
 │   └── photos/              band photos
 ├── src/
 │   ├── entries/             one per HTML page, mounts the React root
-│   ├── pages/                page components
-│   └── shared/              copy, config, fonts.css, global.css, responsive.css
-├── scripts/strip-exif.sh
+│   ├── pages/               page components
+│   └── shared/              copy, config, fonts.css, global.css, responsive.css, useLang
+├── scripts/
+│   ├── optimize-photos.sh
+│   └── strip-exif.sh
 ├── vite.config.js
 ├── package.json
 └── README.md

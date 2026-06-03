@@ -52,7 +52,7 @@ export default function Privacy({ lang = 'lv' }) {
           {
             title: '4. Recipients',
             paragraphs: [
-              <>Form submissions are processed by <strong>Netlify, Inc.</strong> (our site host) as our data processor — submissions are stored in Netlify's infrastructure and emailed to info@plans-b.lv. Netlify's servers are outside the EU; transfers rely on the EC Standard Contractual Clauses. More information: <a className="pv-link" href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">netlify.com/privacy</a>.</>,
+              <>Form submissions are processed by <strong>FormSubmit</strong> (formsubmit.co) as our data processor — they receive the submission and forward it by email to info@plans-b.lv. FormSubmit's servers are outside the EU; transfers rely on the EC Standard Contractual Clauses. More information: <a className="pv-link" href="https://formsubmit.co/legal/privacy-policy" target="_blank" rel="noopener noreferrer">formsubmit.co/legal/privacy-policy</a>.</>,
               'Only Plāns B members read the messages. We do not sell or share the data.',
             ],
           },
@@ -117,7 +117,7 @@ export default function Privacy({ lang = 'lv' }) {
           {
             title: '4. Kam datus nodod',
             paragraphs: [
-              <>Formas iesniegšanu apstrādā <strong>Netlify, Inc.</strong> (vietnes mitinātājs) kā mūsu datu apstrādātājs — iesniegumi tiek saglabāti Netlify infrastruktūrā un nosūtīti pa e-pastu uz info@plans-b.lv. Netlify infrastruktūra atrodas ārpus ES; pārsūtīšana balstās uz EK standarta līguma klauzulām. Plašāka informācija: <a className="pv-link" href="https://www.netlify.com/privacy/" target="_blank" rel="noopener noreferrer">netlify.com/privacy</a>.</>,
+              <>Formas iesniegšanu apstrādā <strong>FormSubmit</strong> (formsubmit.co) kā mūsu datu apstrādātājs — iesniegums tiek saņemts un pārsūtīts pa e-pastu uz info@plans-b.lv. FormSubmit servera infrastruktūra atrodas ārpus ES; pārsūtīšana balstās uz EK standarta līguma klauzulām. Plašāka informācija: <a className="pv-link" href="https://formsubmit.co/legal/privacy-policy" target="_blank" rel="noopener noreferrer">formsubmit.co/legal/privacy-policy</a>.</>,
               'Saturu redz tikai Plāns B dalībnieki, kas atbild uz pieprasījumiem. Mēs nepārdodam un nedalāmies ar datiem.',
             ],
           },
